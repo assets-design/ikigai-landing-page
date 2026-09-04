@@ -1,0 +1,26 @@
+<svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <defs>
+    <linearGradient id="siren-dome" x1="21" y1="10" x2="21" y2="28" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF4D4D"/>
+      <stop offset="0.45" stop-color="#D31C1C"/>
+      <stop offset="1" stop-color="#A01414"/>
+    </linearGradient>
+    <linearGradient id="siren-base" x1="21" y1="27" x2="21" y2="34" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6B7280"/>
+      <stop offset="1" stop-color="#374151"/>
+    </linearGradient>
+    <radialGradient id="siren-glow" cx="21" cy="12" r="10" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFE066" stop-opacity="0.95"/>
+      <stop offset="0.55" stop-color="#FFB800" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#FFB800" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <ellipse cx="21" cy="11.5" rx="11" ry="7.5" fill="url(#siren-glow)"/>
+  <path d="M14 11.5C14 7.08 17.13 3.5 21 3.5C24.87 3.5 28 7.08 28 11.5C28 12.33 27.84 13.12 27.55 13.84L26.9 15.5H15.1L14.45 13.84C14.16 13.12 14 12.33 14 11.5Z" fill="#FFB800" fill-opacity="0.85"/>
+  <path d="M15.5 11.2C15.5 8.43 17.98 6.2 21 6.2C24.02 6.2 26.5 8.43 26.5 11.2C26.5 11.72 26.42 12.22 26.27 12.68L25.85 14H16.15L15.73 12.68C15.58 12.22 15.5 11.72 15.5 11.2Z" fill="#FFD966"/>
+  <path d="M13.5 15.5H28.5C29.88 15.5 31 16.62 31 18V24.5C31 26.43 29.43 28 27.5 28H14.5C12.57 28 11 26.43 11 24.5V18C11 16.62 12.12 15.5 13.5 15.5Z" fill="url(#siren-dome)"/>
+  <path d="M13.5 18.5C16.2 20.1 19.4 20.9 21 20.9C22.6 20.9 25.8 20.1 28.5 18.5" stroke="#FF8A8A" stroke-width="1.2" stroke-linecap="round" opacity="0.65"/>
+  <rect x="12" y="27.5" width="18" height="6.5" rx="1.5" fill="url(#siren-base)"/>
+  <rect x="10.5" y="33.5" width="21" height="3.5" rx="1.25" fill="#1F2937"/>
+</svg>

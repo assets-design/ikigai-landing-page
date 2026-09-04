@@ -1,0 +1,195 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #d31c1c;
+  --color-primary-dark: #b01818;
+  --color-navy: #394464;
+  --color-navy-dark: #2d3550;
+
+  --color-black: #000000;
+  --color-white: #ffffff;
+  --color-text: #000000;
+  --color-text-muted: rgba(0, 0, 0, 0.4);
+  --color-text-on-dark: #ffffff;
+
+  --color-surface: #ffffff;
+  --color-surface-muted: #f5f7f6;
+
+  --color-focus: #d31c1c;
+
+  --font-sans: "DM Sans", system-ui, -apple-system, sans-serif;
+  --font-display: "Aeonik", "DM Sans", system-ui, sans-serif;
+}
+
+@utility text-cta {
+  font-size: clamp(0.875rem, 1.04vw, 1.25rem);
+  line-height: 1.3;
+}
+
+@utility text-nav {
+  font-size: clamp(0.875rem, 1.04vw, 1.25rem);
+  line-height: 1.3;
+}
+
+@utility text-display {
+  font-size: clamp(2.5rem, 3.33vw, 4rem);
+  line-height: 1.13;
+}
+
+@utility text-h2 {
+  font-size: clamp(2.5rem, 3.33vw, 4rem);
+  line-height: 1.13;
+}
+
+@utility text-body {
+  font-size: clamp(0.875rem, 1.04vw, 1.25rem);
+  line-height: 1.3;
+}
+
+@utility text-body-sm {
+  font-size: clamp(0.8125rem, 0.94vw, 1.125rem);
+  line-height: 1.3;
+}
+
+@utility text-label {
+  font-size: clamp(0.8125rem, 1.15vw, 1.375rem);
+  line-height: 1.3;
+}
+
+@utility text-field {
+  font-size: clamp(0.8125rem, 1.15vw, 1.375rem);
+  line-height: 1.3;
+}
+
+@utility text-h3 {
+  font-size: clamp(1.375rem, 1.35vw, 1.625rem);
+  line-height: 1.2;
+}
+
+@utility text-stat {
+  font-size: clamp(3.5rem, 4.9vw, 5.875rem);
+  line-height: 1;
+}
+
+@utility font-display {
+  font-family: var(--font-display);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--color-surface);
+    overscroll-behavior-y: none;
+  }
+
+  body {
+    @apply bg-surface text-text font-sans antialiased;
+    min-width: 320px;
+    overscroll-behavior-y: none;
+  }
+
+  #root {
+    isolation: isolate;
+    min-height: 100dvh;
+  }
+
+  a,
+  button {
+    @apply transition-colors duration-150 ease-in-out;
+  }
+
+  /* iOS Safari date inputs have an intrinsic min-width that overflows rounded fields. */
+  input[type='date'] {
+    -webkit-appearance: none;
+    appearance: none;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  input[type='date']::-webkit-date-and-time-value {
+    text-align: left;
+    min-width: 0;
+  }
+
+  input[type='date']::-webkit-datetime-edit {
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+  }
+}
+
+/* Contain Google Maps iframes on iOS — overflow:hidden alone does not clip iframe layers. */
+.map-embed-clip {
+  isolation: isolate;
+  contain: paint;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  clip-path: inset(0);
+  -webkit-clip-path: inset(0);
+}
+
+.map-embed-scroll {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@utility hero-fade {
+  animation: fade-in 0.6s ease-out both;
+}
+
+@utility hero-fade-delayed {
+  animation: fade-in 0.8s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-fade,
+  .hero-fade-delayed {
+    animation: none;
+  }
+
+  .appointment-popup-overlay,
+  .appointment-popup-dialog {
+    transition: none !important;
+  }
+}
+
+.specialist-carousel-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
+}
+
+.specialist-carousel-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.specialist-carousel-grab {
+  cursor: grab;
+}
+
+.specialist-carousel-grabbing {
+  cursor: grabbing;
+  user-select: none;
+}
+
+.specialist-carousel-fade-left {
+  background: linear-gradient(to right, #ffffff 20%, transparent);
+}
+
+.specialist-carousel-fade-right {
+  background: linear-gradient(to left, #ffffff 20%, transparent);
+}
