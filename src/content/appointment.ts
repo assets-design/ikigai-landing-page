@@ -38,6 +38,18 @@ export const FOOTER = {
     company: 'Theories Consulting',
     href: 'https://theories.consulting/',
   },
+  locations: [
+    {
+      name: 'Kondapur',
+      phone: '9063453373',
+      tel: 'tel:+919063453373',
+    },
+    {
+      name: 'Manikonda',
+      phone: '8977318477',
+      tel: 'tel:+918977318477',
+    },
+  ],
   social: [
     {
       id: 'instagram',

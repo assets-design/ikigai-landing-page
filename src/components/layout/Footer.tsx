@@ -22,24 +22,42 @@ export default function Footer({ className = '' }: FooterProps) {
           />
         </a>
 
-        <nav aria-label="Social media" className="flex items-center gap-[clamp(0.75rem,1.04vw,1.25rem)]">
-          {FOOTER.social.map((item) => (
-            <a
-              key={item.id}
-              href={item.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={item.label}
-              className="transition-opacity duration-150 hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
-            >
-              <img
-                src={item.icon}
-                alt=""
-                className="size-[clamp(40px,3.02vw,58px)]"
-              />
-            </a>
-          ))}
-        </nav>
+        <div className="flex flex-col gap-[clamp(0.75rem,1.04vw,1.25rem)] sm:flex-row sm:items-center sm:gap-[clamp(1rem,1.56vw,1.875rem)]">
+          <p className="flex flex-wrap items-center gap-x-1 text-body capitalize text-black/60">
+            {FOOTER.locations.map((location, index) => (
+              <span key={location.name} className="inline-flex flex-wrap items-center gap-x-1">
+                {index > 0 && <span aria-hidden="true">|</span>}
+                <span>{location.name}</span>
+                <span aria-hidden="true">|</span>
+                <a
+                  href={location.tel}
+                  className="transition-opacity duration-150 hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+                >
+                  {location.phone}
+                </a>
+              </span>
+            ))}
+          </p>
+
+          <nav aria-label="Social media" className="flex items-center gap-[clamp(0.75rem,1.04vw,1.25rem)]">
+            {FOOTER.social.map((item) => (
+              <a
+                key={item.id}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={item.label}
+                className="transition-opacity duration-150 hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+              >
+                <img
+                  src={item.icon}
+                  alt=""
+                  className="size-[clamp(40px,3.02vw,58px)]"
+                />
+              </a>
+            ))}
+          </nav>
+        </div>
       </div>
 
       <div className="mt-[clamp(1.25rem,1.56vw,1.875rem)] border-t border-black/15 pt-[clamp(1rem,1.56vw,1.875rem)]">

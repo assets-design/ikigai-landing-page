@@ -19,6 +19,12 @@ const TELECRM_ERROR_MESSAGES: Record<string, string> = {
     'Could not submit request. Please try again or call us to book.',
   NOT_AUTHORIZED:
     'Could not submit request. Please try again or call us to book.',
+  INVALID_LEAD:
+    'Could not submit request. Please check your details and try again.',
+  VALIDATION_ERROR:
+    'Could not submit request. Please check your details and try again.',
+  BAD_REQUEST:
+    'Could not submit request. Please try again or call us to book.',
 }
 
 function parseTeleCrmError(raw: string): string {
@@ -50,13 +56,25 @@ function parseTeleCrmError(raw: string): string {
   return trimmed
 }
 
+function buildLeadFields(payload: AppointmentPayload) {
+  return {
+    name: payload.name.trim(),
+    phone: payload.phone.trim(),
+    Treatment: payload.treatment,
+    'Preferred Date': payload.preferredDate,
+    Source: 'Website Landing Page',
+  }
+}
+
 /**
- * Sends appointment leads to TeleCRM Async API.
+ * Sends appointment leads to TeleCRM Sync API.
  * Credentials come from Vite env vars (never hardcode tokens in source).
  *
- * Endpoint pattern:
- * POST https://next-api.telecrm.in/enterprise/{enterpriseId}/autoupdatelead
- * Authorization: Bearer {token}
+ * Endpoint:
+ * POST https://next.telecrm.in/autoupdate/v2/enterprise/{enterpriseId}/lead
+ * Authorization: Bearer {syncToken}
+ *
+ * Docs: https://docs.telecrm.in/sync-api/leads/create
  */
 export async function submitAppointmentToTeleCrm(
   payload: AppointmentPayload,
@@ -74,22 +92,10 @@ export async function submitAppointmentToTeleCrm(
     }
   }
 
-  const endpoint = `https://next-api.telecrm.in/enterprise/${enterpriseId}/autoupdatelead`
+  const endpoint = `https://next.telecrm.in/autoupdate/v2/enterprise/${enterpriseId}/lead`
 
   const body = {
-    fields: {
-      name: payload.name.trim(),
-      phone: payload.phone.trim(),
-      Treatment: payload.treatment,
-      'Preferred Date': payload.preferredDate,
-      Source: 'Website Landing Page',
-    },
-    actions: [
-      {
-        type: 'SYSTEM_NOTE',
-        text: `Appointment request from website — Treatment: ${payload.treatment}, Preferred date: ${payload.preferredDate}`,
-      },
-    ],
+    fields: buildLeadFields(payload),
   }
 
   try {
@@ -104,6 +110,11 @@ export async function submitAppointmentToTeleCrm(
 
     const text = await response.text().catch(() => '')
 
+    // Lead already exists — treat as success so returning visitors still reach thank-you.
+    if (response.status === 409) {
+      return { ok: true }
+    }
+
     if (!response.ok) {
       const message =
         parseTeleCrmError(text) ||
@@ -116,16 +127,9 @@ export async function submitAppointmentToTeleCrm(
       return { ok: false, message }
     }
 
-    // Async API returns 200 with { "status": "QUEUED" } — receipt only, not processing outcome.
-    if (text) {
-      try {
-        const parsed = JSON.parse(text) as { status?: string }
-        if (parsed.status === 'QUEUED') {
-          return { ok: true }
-        }
-      } catch {
-        // Non-JSON 200 — treat as success (fire-and-forget endpoint).
-      }
+    // Sync create returns 201 with { lead_id, actions?, remarks? }
+    if (response.status === 201 || response.status === 200) {
+      return { ok: true }
     }
 
     return { ok: true }

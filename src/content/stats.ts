@@ -1,7 +1,7 @@
 export const STATS = [
-  { value: 10, suffix: '+', label: 'Years of Combined Experience' },
+  { value: 40, suffix: '+', label: 'Years of Combined Experience' },
   { value: 10, suffix: 'K+', label: 'Patients Treated' },
-  { value: 95, suffix: '%', label: 'Successful Outcomes' },
+  { value: 98, suffix: '%', label: 'Successful Outcomes' },
   { value: 2, suffix: '', label: 'Urban Locations' },
 ] as const
 

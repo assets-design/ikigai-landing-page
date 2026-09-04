@@ -152,7 +152,7 @@ export default function AppointmentForm({ layout = 'inline' }: AppointmentFormPr
     }
   }
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
     const nextErrors = validateAll(values)
@@ -175,14 +175,26 @@ export default function AppointmentForm({ layout = 'inline' }: AppointmentFormPr
 
     const normalizedPhone = normalizePhone(phone)
 
-    // Temporary: always redirect to thank-you until TeleCRM license is active.
-    void submitAppointmentToTeleCrm({
+    const result = await submitAppointmentToTeleCrm({
       name: name.trim(),
       phone: normalizedPhone,
       treatment,
       preferredDate,
     })
 
+    if (!result.ok) {
+      if (import.meta.env.DEV) {
+        console.warn('[AppointmentForm] TeleCRM submit failed:', result.message)
+      }
+      setStatus('error')
+      setMessage(
+        result.message ||
+          'Could not submit your request. Please try again or call us to book.',
+      )
+      return
+    }
+
+    setStatus('success')
     navigate('/thank-you')
   }
 

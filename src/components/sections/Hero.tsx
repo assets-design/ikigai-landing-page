@@ -49,6 +49,13 @@ export default function Hero() {
           >
             {HERO.subtitle}
           </p>
+
+          <p
+            className="text-body-sm font-bold hero-fade-delayed mx-auto mt-3 text-navy/80 sm:mt-[clamp(0.65rem,1vw,1rem)] sm:max-w-[clamp(18rem,55vw,51.8125rem)]"
+            data-node-id="175:958"
+          >
+            {HERO.specialties}
+          </p>
         </div>
 
         <div className="hidden shrink-0 sm:block sm:h-[48%]" aria-hidden="true" />
