@@ -1,21 +1,7 @@
-import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 import Button from '@/components/ui/Button'
 import { SITE } from '@/lib/constants'
 
-const AUTO_REDIRECT_MS = 3000
-
 export default function ThankYou() {
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    const timer = window.setTimeout(() => {
-      navigate('/')
-    }, AUTO_REDIRECT_MS)
-
-    return () => window.clearTimeout(timer)
-  }, [navigate])
-
   return (
     <div className="flex min-h-screen items-center justify-center bg-surface px-[clamp(1.25rem,6.25vw,7.5rem)] py-[clamp(2rem,4vw,4rem)]">
       <div className="mx-auto flex w-full max-w-[min(100%,720px)] flex-col items-center text-center">
@@ -40,7 +26,7 @@ export default function ThankYou() {
         </p>
 
         <div className="mt-[clamp(1.5rem,2.08vw,2.5rem)] flex w-full flex-col items-stretch justify-center gap-[clamp(0.75rem,1vw,1rem)] sm:w-auto sm:flex-row sm:items-center">
-          <Button variant="navy" onClick={() => navigate('/')}>
+          <Button variant="navy" href="https://ikigaihospitals.com/">
             Back To Homepage
           </Button>
           <Button variant="outline-navy" href={SITE.phoneHref}>
